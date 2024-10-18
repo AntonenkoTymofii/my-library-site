@@ -1,6 +1,6 @@
-package org.example.springlab2.Repositories;
+package org.example.springlab2.repositories;
 
-import org.example.springlab2.Models.KeyWords;
+import org.example.springlab2.models.KeyWords;
 import org.springframework.data.repository.CrudRepository;
 
 public interface KeyWordsRepository extends CrudRepository<KeyWords, Long> {

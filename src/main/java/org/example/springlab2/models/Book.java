@@ -1,16 +1,29 @@
-package org.example.springlab2.Models;
+package org.example.springlab2.models;
 
+
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "book")
 public class Book {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private Author author; // Книга має одного автора
 
+    @ManyToMany
+    @JoinTable(
+            name = "book_keywords",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "keyword_id")
+    )
     private List<KeyWords> keyWords;
 
     public Book() {

@@ -1,14 +1,19 @@
-package org.example.springlab2.Models;
+package org.example.springlab2.models;
 
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "keywords")
 public class KeyWords {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String word;
 
+    @ManyToMany(mappedBy = "keyWords")
     private List<Book> books;
 
     public KeyWords(long id, String word, List<Book> books) {

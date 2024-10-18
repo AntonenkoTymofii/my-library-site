@@ -1,7 +1,7 @@
-package org.example.springlab2.Repositories;
+package org.example.springlab2.repositories;
 
-import org.example.springlab2.Models.Author;
-import org.example.springlab2.Models.Book;
+import org.example.springlab2.models.Author;
+import org.example.springlab2.models.Book;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.ArrayList;
