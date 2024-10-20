@@ -12,4 +12,5 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     List<Book> findByAuthor(Author author);
     List<Book> findByKeyWords(KeyWords keyword);
     List<Book> findByTitleContainingOrKeyWords_WordContaining(String title, String keyword);
+    List<Book> findByYear(int year);
 }
