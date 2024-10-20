@@ -1,9 +1,13 @@
 package org.example.springlab2.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "keywords")
 public class KeyWords {
@@ -11,6 +15,7 @@ public class KeyWords {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "word")
     private String word;
 
     @ManyToMany(mappedBy = "keyWords")
@@ -25,27 +30,4 @@ public class KeyWords {
     public KeyWords() {
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
 }
