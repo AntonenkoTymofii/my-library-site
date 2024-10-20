@@ -1,9 +1,8 @@
 package org.example.springlab2.service;
 
-import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityNotFoundException;
 import org.example.springlab2.models.Author;
 import org.example.springlab2.repositories.AuthorRepository;
-import org.example.springlab2.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +11,9 @@ import java.util.List;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
-    private final BookRepository bookRepository;
 
-    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
-        this.bookRepository = bookRepository;
     }
 
     public List<Author> findAllAuthors() {
@@ -24,7 +21,7 @@ public class AuthorService {
     }
 
     public List<Author> searchAuthors(String name) {
-        return authorRepository.findByNameContaining(name);
+        return authorRepository.findByFirstNameContaining(name);
     }
 
     public Author findById(Long id) {
@@ -32,7 +29,25 @@ public class AuthorService {
     }
 
     public void updateAuthor(Author author) {
-        authorRepository.save(author);
+        Author existingAuthor = authorRepository.findById(author.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
+
+        existingAuthor.setFirstName(author.getFirstName());
+        existingAuthor.setLastName(author.getLastName());
+
+        authorRepository.save(existingAuthor);
+    }
+
+    public Author findByFirstName(String firstName) {
+        return authorRepository.findByFirstName(firstName);
+    }
+
+    public Author findByLastName(String lastName) {
+        return authorRepository.findByLastName(lastName);
+    }
+
+    public void deleteAuthor(Long id) {
+        authorRepository.deleteById(id);
     }
 
 }
