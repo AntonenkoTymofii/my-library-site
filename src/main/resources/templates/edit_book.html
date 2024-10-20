@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit Book</title>
 </head>
 <body>
+<h1>Edit Book</h1>
 
+<form th:action="@{/book/update}" th:object="${book}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}" required />
+    </div>
+
+    <div>
+        <label for="author">Author:</label>
+        <select id="author" th:field="*{author.id}" required>
+            <option th:each="author : ${authors}"
+                    th:value="${author.id}"
+                    th:text="${author.firstName} + ' ' + ${author.lastName}"
+                    th:selected="${author.id == book.author.id}"></option>
+        </select>
+    </div>
+
+    <div>
+        <label for="year">Year:</label>
+        <input type="number" id="year" th:field="*{year}" required />
+    </div>
+
+    <div>
+        <label for="keyWords">Genres:</label>
+        <select id="keyWords" multiple th:field="*{keyWords}">
+            <option th:each="keyword : ${allGenres}"
+                    th:value="${keyword.id}"
+                    th:text="${keyword.word}"></option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Update Book</button>
+    </div>
+</form>
+
+<a th:href="@{/books}">Back to Book List</a>
 </body>
 </html>

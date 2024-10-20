@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit Author</title>
+    <title>Add New Author</title>
     <meta charset="UTF-8">
 </head>
 <body>
-<h1>Edit Author</h1>
-<form th:action="@{/author/update}" th:object="${author}" method="post">
-    <input type="hidden" th:field="*{id}"/>
-
+<h1>Add New Author</h1>
+<form th:action="@{/author/add}" th:object="${author}" method="post">
     <label for="firstName">First Name:</label>
     <input type="text" id="firstName" th:field="*{firstName}" required>
 
     <label for="lastName">Last Name:</label>
     <input type="text" id="lastName" th:field="*{lastName}" required>
 
-    <button type="submit">Update Author</button>
+    <button type="submit">Add Author</button>
 </form>
 <a href="/author/all">Back to All Authors</a>
 </body>

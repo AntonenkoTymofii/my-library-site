@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Authors</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-
+<div th:insert="~{parts/navigation::top_part}"></div>
+<h1>Authors</h1>
+<a href="/author/add">Add New Author</a>
+<form action="/author/search" method="get">
+    <input type="text" name="query" placeholder="Search by first name">
+    <button type="submit">Search</button>
+</form>
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="author : ${authors}">
+        <td th:text="${author.firstName}"></td>
+        <td th:text="${author.lastName}"></td>
+        <td>
+            <a th:href="@{/author/edit(id=${author.id})}">Edit</a>
+            <a th:href="@{/author/delete(id=${author.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

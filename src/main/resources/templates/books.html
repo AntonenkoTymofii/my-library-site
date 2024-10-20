@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>All Books</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-
+<div th:insert="~{parts/navigation::top_part}"></div>
+<h1>All Books</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>Key Words</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author.firstName} + ' ' +${book.author.lastName}"></td>
+        <td th:text="${book.year}"></td>
+        <td>
+            <span th:each="keyword : ${book.keyWords}" th:text="${keyword.word} + ', '" />
+        </td>
+        <td>
+            <a th:href="@{/book/edit(id=${book.id})}">Edit</a> |
+            <a th:href="@{/book/delete(id=${book.id})}"
+               onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/book/new">Add New Book</a>
+<form action="#" th:action="@{/book/search}" method="get">
+    <input type="text" name="title" placeholder="Search by Title">
+    <input type="text" name="author" placeholder="Search by Author last name">
+    <input type="number" name="year" placeholder="Search by Year">
+    <input type="text" name="keyword" placeholder="Search by Keywords"> <!-- Додай поле для ключових слів -->
+    <button type="submit">Search</button>
+</form>
 </body>
 </html>

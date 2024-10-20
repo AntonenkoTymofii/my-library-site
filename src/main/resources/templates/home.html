@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Guest what`s up</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-
+<div th:insert="~{parts/navigation::top_part}"></div>
+<h1>This is home page of our library</h1>
+<h2>To proceed with books please authorise</h2>
+<a href="/login">Login</a>
+<p>Don't have account? Please register</p>
+<a href="/registration">Registration</a>
 </body>
 </html>
