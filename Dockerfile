@@ -5,6 +5,7 @@ COPY gradlew .
 COPY build.gradle .
 COPY settings.gradle .
 COPY ./src ./src
+RUN chmod +x gradlew
 RUN ./gradlew clean build -x test
 
 FROM eclipse-temurin:17-jre-jammy
