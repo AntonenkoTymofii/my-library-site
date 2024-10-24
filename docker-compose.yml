@@ -1,0 +1,26 @@
+version: '3.1'
+
+volumes:
+  pg_library:
+
+services:
+  library_bd:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=7327tim2005
+      - POSTGRES_DB=library
+    volumes:
+      - pg_library:/var/lib/postgres/data
+    ports:
+      - "127.0.0.1:5432:5432"
+  app:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - library_bd
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://library_bd:5432/library'
