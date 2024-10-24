@@ -48,7 +48,7 @@ public class BookService {
 
     public void updateBook(Book book) {
         Book existingBook = bookRepository.findById(book.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
 
         existingBook.setTitle(book.getTitle());
         existingBook.setAuthor(book.getAuthor());
