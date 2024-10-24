@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Add New Keyword</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+<h1>Add New Keyword</h1>
+<form th:action="@{/keyword/add}" th:object="${keyword}" method="post">
+  <label for="word">Keyword:</label>
+  <input type="text" id="word" th:field="*{word}" required>
+
+  <button type="submit">Add Keyword</button>
+</form>
+<a href="/keyword/all">Back to All Keywords</a>
+</body>
+</html>
