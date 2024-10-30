@@ -24,12 +24,13 @@ Testing was implemented using Mockito and JUnit.
 In order to run the project on a local computer,
 you need to unload the repository with the command:
 ```
-    git clone https://github.com/AntonenkoTymofii/my-library-site
+git clone https://github.com/AntonenkoTymofii/my-library-site
 ```
 
 Next, you will need to run the docker-compose file.
 You will need to have the docker desktop downloaded.
 You can download the docker on the official website: https://www.docker.com
+
 To run the application, go to the command line and navigate to
 the root folder of the uploaded repository.
 First, you need to build the project:
