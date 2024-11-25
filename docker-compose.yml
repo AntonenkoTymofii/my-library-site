@@ -23,4 +23,4 @@ services:
     depends_on:
       - library_bd
     environment:
-      SPRING_DATASOURCE_URL: 'jdbc:postgresql://dpg-csdbgs9u0jms73ba4nmg-a/library_db_pb3a'
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://user:6CwjRyHXOqWmfIGraG6wc4TPYjSzNt08@dpg-ct2dj5qj1k6c73ckuilg-a.frankfurt-postgres.render.com/library_955k'
