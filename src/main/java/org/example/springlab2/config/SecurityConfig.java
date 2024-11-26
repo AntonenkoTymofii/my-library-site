@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,13 +19,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Налаштування авторизації
+        http.authorizeHttpRequests(auth ->
+                auth.requestMatchers("/", "/login", "/registration", "/authenticate").permitAll()
+                        .anyRequest().authenticated()
+        );
 
-        http.authorizeHttpRequests(request -> request.requestMatchers("/", "/book/**", "/author/**").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(form -> form.loginPage("/login")
+        // Налаштування форми логіну
+        http.formLogin(form ->
+                form.loginPage("/login")
                         .defaultSuccessUrl("/", true)
-                        .permitAll())
-                .logout(LogoutConfigurer::permitAll);
+                        .permitAll()
+        );
+
+        // Налаштування логауту
+        http.logout(logout -> logout.permitAll());
+
+        // Додавання CSRF (якщо потрібно увімкнути/вимкнути)
+        http.csrf(csrf -> csrf.disable()); // Вимкнути CSRF, якщо використовуєте REST API
+
         return http.build();
     }
 
@@ -37,14 +47,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        return authenticationManagerBuilder.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-        return authenticationManagerBuilder.build();
+    public MyUserDetailsService userDetailsService() {
+        return new MyUserDetailsService();
     }
 }
