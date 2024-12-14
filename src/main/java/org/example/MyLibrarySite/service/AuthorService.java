@@ -38,6 +38,13 @@ public class AuthorService {
         authorRepository.save(existingAuthor);
     }
 
+    public void addAuthor(Author author) {
+        if (author == null || author.getFirstName() == null || author.getLastName() == null) {
+            throw new IllegalArgumentException("Author details cannot be null");
+        }
+        authorRepository.save(author);
+    }
+
     public Author findByFirstName(String firstName) {
         return authorRepository.findByFirstName(firstName);
     }

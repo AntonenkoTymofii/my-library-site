@@ -58,6 +58,26 @@ public class BookService {
         bookRepository.save(existingBook);
     }
 
+    public void addBook(Book book) {
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null");
+        }
+
+        if (book.getTitle() == null || book.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Book title cannot be null or empty");
+        }
+
+        if (book.getAuthor() == null || book.getAuthor().getId() == null) {
+            throw new IllegalArgumentException("Book must have a valid author");
+        }
+
+        if (book.getKeyWords() == null || book.getKeyWords().isEmpty()) {
+            throw new IllegalArgumentException("Book must have at least one keyword");
+        }
+
+        bookRepository.save(book);
+    }
+
     public List<Book> findBooksByAuthor(Author author) {
         return bookRepository.findByAuthor(author);
     }

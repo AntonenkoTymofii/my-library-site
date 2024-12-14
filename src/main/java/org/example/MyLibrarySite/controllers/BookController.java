@@ -47,7 +47,7 @@ public class BookController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public String addBook(@ModelAttribute("book") Book book) {
-        bookService.updateBook(book);
+        bookService.addBook(book);
         return "redirect:/book/all";
     }
 
