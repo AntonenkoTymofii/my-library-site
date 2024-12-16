@@ -67,7 +67,7 @@ class AuthorControllerTest {
 
         String redirectView = authorController.addAuthor(author);
 
-        verify(authorService).updateAuthor(any(Author.class));
+        verify(authorService).addAuthor(any(Author.class));
         assertEquals("redirect:/author/all", redirectView);
     }
 

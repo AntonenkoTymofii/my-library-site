@@ -72,7 +72,7 @@ class BookControllerTest {
 
         String redirectView = bookController.addBook(book);
 
-        verify(bookService).updateBook(book);
+        verify(bookService).addBook(book);
         assertEquals("redirect:/book/all", redirectView);
     }
 
