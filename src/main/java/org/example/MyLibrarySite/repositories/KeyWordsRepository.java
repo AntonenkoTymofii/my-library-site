@@ -8,5 +8,4 @@ import java.util.List;
 public interface KeyWordsRepository extends CrudRepository<KeyWords, Long> {
     KeyWords findByWord(String word);
     List<KeyWords> findByWordContainingIgnoreCase(String word);
-
 }
