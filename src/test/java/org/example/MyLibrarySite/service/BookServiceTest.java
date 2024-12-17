@@ -7,6 +7,7 @@ import org.example.MyLibrarySite.repositories.BookRepository;
 import org.example.MyLibrarySite.repositories.KeyWordsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class BookServiceTest {
 
     private BookRepository bookRepository;
