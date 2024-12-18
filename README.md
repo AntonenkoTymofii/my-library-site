@@ -4,6 +4,8 @@
 
 Deploy is here: https://my-library-site.onrender.com
 
+Swagger is here: https://my-library-site.onrender.com/swagger-ui/index.html
+
 ## About project
 
 This is a pet project that implements a simple library of books and authors. 
