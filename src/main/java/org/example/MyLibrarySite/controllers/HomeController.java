@@ -40,10 +40,8 @@ public class HomeController {
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
-        // Завантаження деталей користувача
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 
-        // Генерація JWT токену
         final String jwt = jwtUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(jwt);

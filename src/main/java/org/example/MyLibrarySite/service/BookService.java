@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.MyLibrarySite.models.Author;
 import org.example.MyLibrarySite.models.Book;
 import org.example.MyLibrarySite.models.KeyWords;
+import org.example.MyLibrarySite.repositories.AuthorRepository;
 import org.example.MyLibrarySite.repositories.BookRepository;
 import org.example.MyLibrarySite.repositories.KeyWordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class BookService {
 
     @Autowired
     private final BookRepository bookRepository;
+    @Autowired
+    public AuthorRepository authorRepository;
     @Autowired
     private final KeyWordsRepository keyWordsRepository;
 
@@ -83,16 +86,26 @@ public class BookService {
     }
 
     public List<Book> searchBooksByKeyWords(String keyword) {
-        KeyWords keyWords = keyWordsRepository.findByWord(keyword); // Знайти ключове слово за назвою
+        KeyWords keyWords = keyWordsRepository.findByWord(keyword);
         if (keyWords != null) {
-            return bookRepository.findByKeyWords(keyWords); // Виклик методу репозиторію
+            return bookRepository.findByKeyWords(keyWords);
         }
-        return Collections.emptyList(); // Повертаємо порожній список, якщо ключове слово не знайдено
+        return Collections.emptyList();
     }
 
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
     }
+
+    public Author findAuthorById(Long id) {
+        return authorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Author not found"));
+    }
+
+    public List<KeyWords> findKeywordsByIds(List<Long> ids) {
+        return (List<KeyWords>) keyWordsRepository.findAllById(ids);
+    }
+
 
 }
 

@@ -4,12 +4,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.example.MyLibrarySite.models.Author;
 import org.example.MyLibrarySite.models.Book;
+import org.example.MyLibrarySite.models.BookBuilder;
+import org.example.MyLibrarySite.models.KeyWords;
 import org.example.MyLibrarySite.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/books")
@@ -41,6 +45,27 @@ public class BookApiController {
         bookService.addBook(book);
         return book;
     }
+
+    @Operation(summary = "Створити власну книгу (через Builder)", description = "Створює книгу за допомогою патерна Builder.")
+    @ApiResponse(responseCode = "201", description = "Книга успішно створена через Builder")
+    @PostMapping("/custom")
+    public Book createCustomBook(@RequestBody Book request) {
+        Author author = bookService.findAuthorById(request.getAuthor().getId());
+        List<KeyWords> keyWords = bookService.findKeywordsByIds(request.getKeyWords()
+                .stream().map(KeyWords::getId)
+                .collect(Collectors.toList()));
+
+        Book book = new BookBuilder()
+                .title(request.getTitle())
+                .year(request.getYear())
+                .author(author)
+                .keyWords(keyWords)
+                .build();
+
+        bookService.addBook(book);
+        return book;
+    }
+
 
     @Operation(summary = "Оновити книгу", description = "Оновлює існуючу книгу за її ID.")
     @ApiResponse(responseCode = "200", description = "Книга успішно оновлена")
